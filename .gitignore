@@ -1,0 +1,4 @@
+*.rs.swp
+/target/
+**/*.rs.bk
+*.swp

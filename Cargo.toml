@@ -1,0 +1,11 @@
+[package]
+name = "arpoison"
+version = "0.1.0"
+authors = ["solidus"]
+
+[dependencies]
+term    = "0.4.6"
+clap    = "2.30.0"
+
+[dependencies.pnet]
+version = "0.20.0"
