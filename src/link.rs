@@ -11,21 +11,21 @@ use std::{thread, time};
 
 #[derive(Clone, Debug)]
 pub struct ArpoisonReply {
-	host:   Ipv4Addr,
+    host:   Ipv4Addr,
     mac:    MacAddr,
     target: Ipv4Addr,
     t_mac:  MacAddr,
 }
 
 impl ArpoisonReply {
-	pub fn new(ahost: Ipv4Addr, amac: MacAddr, atarget: Ipv4Addr, atmac: MacAddr) -> ArpoisonReply {
-		ArpoisonReply {
-			host:   ahost,
-			mac:    amac,
-			target: atarget, 
+    pub fn new(ahost: Ipv4Addr, amac: MacAddr, atarget: Ipv4Addr, atmac: MacAddr) -> ArpoisonReply {
+        ArpoisonReply {
+            host:   ahost,
+            mac:    amac,
+            target: atarget,
             t_mac: atmac,
-		}
-	}
+        }
+    }
 
     pub fn tcpdump_output(&self) {
         println!(

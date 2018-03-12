@@ -16,23 +16,23 @@ pub struct AppArgs {
 }
 
 pub fn get_args() -> AppArgs {
-    let matches: ArgMatches = App::new("ARPoison")  
-        .author("solidus")                                  
-        .version("0.1.0")                                   
-        .about("A stupid attempt to learn Rust")            
-        .arg(Arg::with_name("target")                       
-            .long("target")                                 
-            .short("t")                                     
-            .help("Target IP to poison")                      
-            .required(true)                                 
-            .takes_value(true)                              
-        )                                                   
-        .arg(Arg::with_name("interface")                    
-            .long("interface")                              
-            .short("i")                                     
-            .help("Interface to use to send spoofed data")  
-            .required(true)                                 
-            .takes_value(true)                              
+    let matches: ArgMatches = App::new("ARPoison") 
+        .author("solidus")                                 
+        .version("0.1.0")                                  
+        .about("A stupid attempt to learn Rust")           
+        .arg(Arg::with_name("target")                      
+            .long("target")                                
+            .short("t")                                    
+            .help("Target IP to poison")                     
+            .required(true)                                
+            .takes_value(true)                             
+        )                                                  
+        .arg(Arg::with_name("interface")                   
+            .long("interface")                             
+            .short("i")                                    
+            .help("Interface to use to send spoofed data") 
+            .required(true)                                
+            .takes_value(true)                             
         )
         .arg(Arg::with_name("macaddr")
             .long("target-mac")
@@ -53,7 +53,7 @@ pub fn get_args() -> AppArgs {
             .required(true)
             .help("The host to inpersonate (usually the gateway)")
         )
-        .get_matches();                                     
+        .get_matches();                                    
     let iface  = matches.value_of("interface").unwrap();
     let target = matches.value_of("target").unwrap();
     let t_mac  = matches.value_of("macaddr").unwrap();
@@ -91,5 +91,5 @@ pub fn get_args() -> AppArgs {
         t_mac:     t_mac,
         host:      host,
         bidirect:  bi,
-    }	 
+    }    
 }
