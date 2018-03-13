@@ -14,6 +14,15 @@ fn main() {
     // Get the command line arguments
     let app_args = args::get_args();
 
+    // Currently not supported
+    // Option
+    if app_args.bidirect {
+        println!(
+            "You have specified bidirectional operation, but this feature is not implemented. \
+            If you want to poison in two directions, run two instances of arpoison ;P"
+        );
+    }
+
     // Closure to be used as a filter
     let iface_match = |iface: &datalink::NetworkInterface| {
         iface.name == app_args.interface
@@ -44,13 +53,6 @@ fn main() {
         app_args.target,
         app_args.t_mac,
     );
-
-    if app_args.bidirect {
-        println!(
-            "You have specified bidirectional operation, but this feature is not implemented. \
-            If you want to poison in two directions, run two instances of arpoison ;P"
-        );
-    }
 
     let worker_one = thread::spawn(move || {
         link::send_arp_loop(&iface, &poison_packet)
