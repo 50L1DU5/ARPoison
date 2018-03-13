@@ -1,3 +1,4 @@
+*.lock
 *.rs.swp
 /target/
 **/*.rs.bk

@@ -2,10 +2,13 @@
 name = "arpoison"
 version = "0.1.0"
 authors = ["solidus"]
+readme = "README.md"
+license-file = "LICENSE"
 
 [dependencies]
-term    = "0.4.6"
 clap    = "2.30.0"
+colored = "1.6"
+term    = "0.4.6"
 
 [dependencies.pnet]
-version = "0.20.0"
+version = "0.21.0"

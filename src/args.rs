@@ -1,6 +1,7 @@
 // File: args.rs
 
 use clap::{App, Arg, ArgMatches};
+use colored::*;
 use std::process::exit;
 use std::str::FromStr;
 use std::net::Ipv4Addr;
@@ -21,7 +22,7 @@ pub struct AppArgs {
     pub target:    Ipv4Addr,
     // The target MAC address. This is the MAC associated
     // with the target's IP address. We don't ask the target
-    // for their MAC address, because after all, who can 
+    // for their MAC address, because after all, who can
     // trust the network? ;)
     pub t_mac:     MacAddr,
     // The  "host" is the IP we're going to
@@ -36,23 +37,23 @@ pub struct AppArgs {
 }
 
 pub fn get_args() -> AppArgs {
-    let matches: ArgMatches = App::new("ARPoison") 
-        .author("solidus")                                 
-        .version("0.1.0")                                  
-        .about("A simple tool to send spoofed ARP packets to poison a victim's cache")           
-        .arg(Arg::with_name("target")                      
-            .long("target")                                
-            .short("t")                                    
-            .help("Target IP to poison")                     
-            .required(true)                                
-            .takes_value(true)                             
-        )                                                  
-        .arg(Arg::with_name("interface")                   
-            .long("interface")                             
-            .short("i")                                    
-            .help("Interface to use to send spoofed data") 
-            .required(true)                                
-            .takes_value(true)                             
+    let matches: ArgMatches = App::new("ARPoison")
+        .author("solidus")
+        .version("0.1.0")
+        .about("A simple tool to send spoofed ARP packets to poison a victim's cache")
+        .arg(Arg::with_name("target")
+            .long("target")
+            .short("t")
+            .help("Target IP to poison")
+            .required(true)
+            .takes_value(true)
+        )                            
+        .arg(Arg::with_name("interface")
+            .long("interface")                  
+            .short("i")
+            .help("Interface to use to send spoofed data")
+            .required(true)
+            .takes_value(true)
         )
         .arg(Arg::with_name("macaddr")
             .long("target-mac")
@@ -73,7 +74,7 @@ pub fn get_args() -> AppArgs {
             .required(true)
             .help("The host to inpersonate (usually the gateway)")
         )
-        .get_matches();                                    
+        .get_matches();                                   
     let iface  = matches.value_of("interface").unwrap();
     let target = matches.value_of("target").unwrap();
     let t_mac  = matches.value_of("macaddr").unwrap();
@@ -81,7 +82,12 @@ pub fn get_args() -> AppArgs {
     let target = match target.parse() {
         Ok(t) => t,
         Err(_) => {
-            eprintln!("Error: Could not parse target IP addr");
+            eprintln!(
+                "{}\n",
+                "Error: Could not parse target IP addr"
+                .white()
+                .on_bright_red()
+            );
             exit(1);
         }
 
@@ -89,18 +95,30 @@ pub fn get_args() -> AppArgs {
     let t_mac = match MacAddr::from_str(&t_mac) {
         Ok(m) => m,
         Err(_) => {
-            eprintln!("Error: Could not parse target MAC addr");
+            eprintln!(
+                "{}\n",
+                "Error: Could not parse target MAC addr"
+                .white()
+                .on_bright_red()
+            );
+
             exit(1);
         }
     };
     let host = match host.parse() {
         Ok(h) => h,
         Err(_) => {
-            eprintln!("Error: Could not parse host IP addr");
+            eprintln!(
+                "{}\n",
+                "Error: Could not parse host IP addr"
+                .white()
+                .on_bright_red()
+            );
+
             exit(1);
         }
     };
-    let bi = match matches.occurrences_of("bi") {
+    let bi = match matches.occurrences_of("bidirectional") {
         0 => false,
         _ => true,
     };
@@ -111,5 +129,5 @@ pub fn get_args() -> AppArgs {
         t_mac:     t_mac,
         host:      host,
         bidirect:  bi,
-    }    
+    }
 }
