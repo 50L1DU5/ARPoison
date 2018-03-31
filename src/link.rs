@@ -28,7 +28,7 @@ impl ArpoisonReply {
         }
     }
 
-    pub fn tcpdump_output(&self) {
+    pub fn print_is_at(&self) {
         println!(
             "{} -> {} {} is-at {}",
             format!("{}", &self.mac).bright_yellow().on_black(),
@@ -81,7 +81,7 @@ pub fn send_arp_loop<'a>(interface: &'a datalink::NetworkInterface,
     ethernet_frame.set_payload(arp_packet.packet_mut());
 
     loop {
-        reply.tcpdump_output();
+        reply.print_is_at();
         tx.send_to(&ethernet_frame.packet_mut(), None);
         thread::sleep(time::Duration::from_millis(1_500))
     }

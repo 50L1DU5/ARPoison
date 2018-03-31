@@ -39,7 +39,7 @@ pub struct AppArgs {
 pub fn get_args() -> AppArgs {
     let matches: ArgMatches = App::new("ARPoison")
         .author("solidus")
-        .version("0.1.0")
+        .version("0.1.1")
         .about("A simple tool to send spoofed ARP packets to poison a victim's cache")
         .arg(Arg::with_name("target")
             .long("target")
