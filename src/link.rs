@@ -39,9 +39,10 @@ impl ArpoisonReply {
     }
 }
 
-pub fn send_arp_loop<'a>(interface: &'a datalink::NetworkInterface,
-                         reply: &'a ArpoisonReply) {
-
+pub fn send_arp_loop<'a>(
+    interface: &'a datalink::NetworkInterface,
+    reply: &'a ArpoisonReply
+) {
     let (mut tx, _) = match datalink::channel(interface, Default::default()){
         Ok(Ethernet(tx, rx)) => (tx, rx),
         Ok(_) => panic!("Completely unknown channel type"),
