@@ -1,14 +1,14 @@
 [package]
 name = "arpoison"
-version = "0.1.1"
+version = "0.1.2"
 authors = ["solidus"]
 readme = "README.md"
 license-file = "LICENSE"
+edition = "2018"
 
 [dependencies]
-clap    = "2.30.0"
-colored = "1.6"
-term    = "0.4.6"
-
-[dependencies.pnet]
-version = "0.21.0"
+clap    = "2.30"
+colored = "2.0.0"
+term    = "0.7.0"
+pnet_packet = "0.31.0"
+pnet = "0.27.1"

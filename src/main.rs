@@ -1,9 +1,4 @@
 // File: main.rs
-
-extern crate clap;
-extern crate pnet;
-extern crate colored;
-
 use colored::*;
 use pnet::datalink;
 use std::process::exit;
